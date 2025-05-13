@@ -170,6 +170,7 @@ public class GestionOrganizacionVinculadaController implements Initializable {
                 
                 mostrarAlerta("Error", "No se pudo cambiar el estado de la organización", Alert.AlertType.ERROR);
             }
+            
         } catch (SQLException e) {
             
             LOG.error("Error de conexión con la base de datos: " + e.getMessage());
