@@ -69,8 +69,8 @@ public class GestionOrganizacionVinculadaController implements Initializable {
     }
     
     private void cargarOrganizacionesVinculadas() {
-        try {
-            
+        
+        try {            
             List<OrganizacionVinculadaDTO> organizaciones = organizacionVinculadaDAO.listarOrganizacionesVinculadas();
             listaOrganizacionesVinculadas = FXCollections.observableArrayList(organizaciones);
             tableOrganizacionesVinculadas.setItems(listaOrganizacionesVinculadas);
@@ -81,6 +81,7 @@ public class GestionOrganizacionVinculadaController implements Initializable {
             mostrarAlerta("Error", "No se pudieron cargar las organizaciones vinculadas: " + e.getMessage(), Alert.AlertType.ERROR);
             
         } catch (IOException e){
+            
             LOG.error("No se lograron cargar los registros",e);
             mostrarAlerta("Error", "No se pudieron cargar las organizaciones vinculadas: " + e.getMessage(), Alert.AlertType.ERROR);
         }
@@ -103,6 +104,7 @@ public class GestionOrganizacionVinculadaController implements Initializable {
         } catch (IOException e) {
             LOG.error("Error al cargar la ventana de registro OV: " + e.getMessage());
             mostrarAlerta ("Error", "Ha ocurrido un error, intentelo más tarde" + e.getMessage(), Alert.AlertType.ERROR);
+            
         }
         
     }
@@ -122,8 +124,8 @@ public class GestionOrganizacionVinculadaController implements Initializable {
             Parent root = loader.load();
             
             RegistroOrganizacionVinculadaController controlador = loader.getController();
-            controlador.setModoEdicion(true);
-            controlador.setOrganizacion(organizacionSeleccionada);
+            controlador.cambiarAModoEdicion(true);
+            controlador.llenarCamposEditablesOrganizacionVinculada(organizacionSeleccionada);
             
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -162,7 +164,8 @@ public class GestionOrganizacionVinculadaController implements Initializable {
             if (actualizacionExitosa) {
                 
                 mostrarAlerta("Éxito", "Estado de la organización cambiado a: " + nuevoEstado, Alert.AlertType.INFORMATION);
-                cargarOrganizacionesVinculadas(); // Recargar la tabla para reflejar el cambio
+                cargarOrganizacionesVinculadas();
+                
             } else {
                 
                 mostrarAlerta("Error", "No se pudo cambiar el estado de la organización", Alert.AlertType.ERROR);

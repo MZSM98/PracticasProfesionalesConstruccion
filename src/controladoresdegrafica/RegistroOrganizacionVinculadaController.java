@@ -34,24 +34,24 @@ public class RegistroOrganizacionVinculadaController {
         organizacionVinculadaDAO = new OrganizacionVinculadaDAO();
     }
     
-    public void setModoEdicion(boolean modoEdicion) {
+    public void cambiarAModoEdicion(boolean modoEdicion) {
         this.modoEdicion = modoEdicion;
         if (modoEdicion) {
             botonRegistrarOrganizacionVinculada.setText("Actualizar");
         }
     }
     
-    public void setOrganizacion(OrganizacionVinculadaDTO organizacion) {
+    public void llenarCamposEditablesOrganizacionVinculada(OrganizacionVinculadaDTO organizacion) {
+        
         this.organizacionVinculadaDTO = organizacion;
         
-        // Llenar los campos con los datos de la organización
         textRfcOV.setText(organizacion.getRfcMoral());
         textNombreOV.setText(organizacion.getNombreOV());
         textTelefonoOV.setText(organizacion.getTelefonoOV());
         textDireccionOV.setText(organizacion.getDireccionOV());
         
-        // Deshabilitar edición del RFC en modo edición
         textRfcOV.setDisable(modoEdicion);
+        
     }
     
     @FXML
