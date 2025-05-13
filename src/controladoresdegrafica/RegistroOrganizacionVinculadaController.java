@@ -1,4 +1,3 @@
-
 package controladoresdegrafica;
 
 import logica.dao.OrganizacionVinculadaDAO;
@@ -13,7 +12,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
 
-
 public class RegistroOrganizacionVinculadaController {    
     
     private static final Logger LOG = Logger.getLogger(GestionOrganizacionVinculadaController.class);
@@ -24,24 +22,80 @@ public class RegistroOrganizacionVinculadaController {
     @FXML 
     private Button botonCancelarRegistroOV;
     
+    @FXML
+    private Button botonRegistrarOrganizacionVinculada;
+    
     private OrganizacionVinculadaDAO organizacionVinculadaDAO;
     private OrganizacionVinculadaDTO organizacionVinculadaDTO;
     
+    private boolean modoEdicion = false;
+    
+    public void initialize() {
+        organizacionVinculadaDAO = new OrganizacionVinculadaDAO();
+    }
+    
+    public void setModoEdicion(boolean modoEdicion) {
+        this.modoEdicion = modoEdicion;
+        if (modoEdicion) {
+            botonRegistrarOrganizacionVinculada.setText("Actualizar");
+        }
+    }
+    
+    public void setOrganizacion(OrganizacionVinculadaDTO organizacion) {
+        this.organizacionVinculadaDTO = organizacion;
+        
+        // Llenar los campos con los datos de la organización
+        textRfcOV.setText(organizacion.getRfcMoral());
+        textNombreOV.setText(organizacion.getNombreOV());
+        textTelefonoOV.setText(organizacion.getTelefonoOV());
+        textDireccionOV.setText(organizacion.getDireccionOV());
+        
+        // Deshabilitar edición del RFC en modo edición
+        textRfcOV.setDisable(modoEdicion);
+    }
     
     @FXML
     private void registrarOrganizacionVinculada(ActionEvent evento) {
         
-        organizacionVinculadaDTO = new OrganizacionVinculadaDTO();
-        organizacionVinculadaDAO = new OrganizacionVinculadaDAO();
+        if (validarCamposVacios() == false) {
+            return;
+        }
         
-        organizacionVinculadaDTO.setRfcMoral(textRfcOV.getText());
-        organizacionVinculadaDTO.setNombreOV(textNombreOV.getText());
-        organizacionVinculadaDTO.setTelefonoOV(textTelefonoOV.getText());
-        organizacionVinculadaDTO.setDireccionOV(textDireccionOV.getText());
-        
-        if (validarCamposVacios() != false) {
+        if (modoEdicion) {
+            
+            organizacionVinculadaDTO.setNombreOV(textNombreOV.getText());
+            organizacionVinculadaDTO.setTelefonoOV(textTelefonoOV.getText());
+            organizacionVinculadaDTO.setDireccionOV(textDireccionOV.getText());
+            
             try {
+                boolean actualizacionExitosa = organizacionVinculadaDAO.editarOrganizacionVinculada(organizacionVinculadaDTO);
                 
+                if (actualizacionExitosa) {
+                    mostrarAlerta("Éxito", "Organización actualizada correctamente", Alert.AlertType.INFORMATION);
+                    Stage stage = (Stage) botonCancelarRegistroOV.getScene().getWindow();
+                    stage.close();
+                } else {
+                    mostrarAlerta("Error", "No se pudo actualizar la organización", Alert.AlertType.ERROR);
+                }
+                
+            } catch (SQLException e) {
+                LOG.error("Error con la conexión de base de datos", e);
+                mostrarAlerta("Error", "Error de conexión con la base de datos: " + e.getMessage(), Alert.AlertType.ERROR);
+            } catch (IOException e) {
+                LOG.error("Error al actualizar la organización", e);
+                mostrarAlerta("Error", "Error al actualizar la organización: " + e.getMessage(), Alert.AlertType.ERROR);
+            }
+            
+        } else {
+            
+            organizacionVinculadaDTO = new OrganizacionVinculadaDTO();
+            
+            organizacionVinculadaDTO.setRfcMoral(textRfcOV.getText());
+            organizacionVinculadaDTO.setNombreOV(textNombreOV.getText());
+            organizacionVinculadaDTO.setTelefonoOV(textTelefonoOV.getText());
+            organizacionVinculadaDTO.setDireccionOV(textDireccionOV.getText());
+            
+            try {
                 organizacionVinculadaDAO.insertarOrganizacionVinculada(organizacionVinculadaDTO);
                 mostrarAlerta("Éxito", "Organización Registrada", Alert.AlertType.INFORMATION);
                 limpiarCampos();
@@ -53,7 +107,6 @@ public class RegistroOrganizacionVinculadaController {
             } catch (IOException e) {
                 LOG.error("Error al registrar la organización", e);
                 mostrarAlerta("Error", "Error al registrar la organización: " + e.getMessage(), Alert.AlertType.ERROR);
-                
             } 
         }
     }
