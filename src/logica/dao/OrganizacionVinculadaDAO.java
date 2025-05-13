@@ -19,6 +19,7 @@ public class OrganizacionVinculadaDAO implements InterfazOrganizacionVinculadaDA
 
     @Override
     public boolean insertarOrganizacionVinculada(OrganizacionVinculadaDTO organizacionVinculada) throws SQLException, IOException {
+        
         String INSERTAR_SQL = "INSERT INTO organizacionvinculada (rfcMoral, nombreOV, direccionOV, telefonoOV) VALUES (?, ?, ?, ?)";
         boolean insercionExitosa = false;
 
@@ -60,7 +61,7 @@ public class OrganizacionVinculadaDAO implements InterfazOrganizacionVinculadaDA
 
     @Override
     public boolean editarOrganizacionVinculada(OrganizacionVinculadaDTO organizacionVinculada) throws SQLException, IOException {
-        final String ACTUALIZAR_SQL = "UPDATE organizacionvinculada SET nombreOV = ?, direccionOV = ?, telefonoOV = ? WHERE rfcMoral = ?";
+        final String ACTUALIZAR_SQL = "UPDATE organizacionvinculada SET nombreOV = ?, direccionOV = ?, telefonoOV = ?, estadoOV = ? WHERE rfcMoral = ?";
         boolean actualizacionExitosa = false;
 
         try {
@@ -70,6 +71,8 @@ public class OrganizacionVinculadaDAO implements InterfazOrganizacionVinculadaDA
             declaracionPreparada.setString(2, organizacionVinculada.getDireccionOV());
             declaracionPreparada.setString(3, organizacionVinculada.getTelefonoOV());
             declaracionPreparada.setString(4, organizacionVinculada.getRfcMoral());
+            declaracionPreparada.setString(4, organizacionVinculada.getEstadoOV());
+            
             declaracionPreparada.executeUpdate();
             actualizacionExitosa = true;
             
@@ -83,7 +86,7 @@ public class OrganizacionVinculadaDAO implements InterfazOrganizacionVinculadaDA
 
     @Override
     public OrganizacionVinculadaDTO buscarOrganizacionVinculada(String rfcMoral) throws SQLException, IOException {
-        final String CONSULTA_SQL = "SELECT rfcMoral, nombreOV, direccionOV, telefonoOV FROM organizacionvinculada WHERE rfcMoral = ?";
+        final String CONSULTA_SQL = "SELECT rfcMoral, nombreOV, direccionOV, telefonoOV, estadoOV FROM organizacionvinculada WHERE rfcMoral = ?";
         OrganizacionVinculadaDTO organizacionVinculada;
         organizacionVinculada = null;
 
@@ -99,6 +102,7 @@ public class OrganizacionVinculadaDAO implements InterfazOrganizacionVinculadaDA
                 organizacionVinculada.setNombreOV(resultadoDeOperacion.getString("nombreOV"));
                 organizacionVinculada.setDireccionOV(resultadoDeOperacion.getString("direccionOV"));
                 organizacionVinculada.setTelefonoOV(resultadoDeOperacion.getString("telefonoOV"));
+                organizacionVinculada.setEstadoOV(resultadoDeOperacion.getString("estadoOV"));
             }
         } finally {
             if (resultadoDeOperacion != null) resultadoDeOperacion.close();
@@ -124,12 +128,15 @@ public class OrganizacionVinculadaDAO implements InterfazOrganizacionVinculadaDA
             resultadoOrganizacionVinculada = preparedStatement.executeQuery();
 
             while(resultadoOrganizacionVinculada.next()) {
+                
                 OrganizacionVinculadaDTO organizacionVinculada = new OrganizacionVinculadaDTO();
                 organizacionVinculada.setRfcMoral(resultadoOrganizacionVinculada.getString("rfcMoral"));
                 organizacionVinculada.setNombreOV(resultadoOrganizacionVinculada.getString("nombreOV"));
                 organizacionVinculada.setTelefonoOV(resultadoOrganizacionVinculada.getString("telefonoOV"));
                 organizacionVinculada.setDireccionOV(resultadoOrganizacionVinculada.getString("direccionOV"));
+                organizacionVinculada.setEstadoOV(resultadoOrganizacionVinculada.getString("estadoOV"));
                 listaOrganizacionVinculada.add(organizacionVinculada);
+                
             }
         } finally {
             
