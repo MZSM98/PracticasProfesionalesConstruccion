@@ -11,13 +11,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 
 public class MenuPrincipalCoordinadorController{
     
-    private static final Logger LOG = LogManager.getLogger(GestionOrganizacionVinculadaController.class);
+    private static final Logger LOG = Logger.getLogger(GestionOrganizacionVinculadaController.class);
     
     @FXML
     private Label labelCerrarSesion;    

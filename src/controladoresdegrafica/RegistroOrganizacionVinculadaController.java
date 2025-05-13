@@ -49,9 +49,11 @@ public class RegistroOrganizacionVinculadaController {
             } catch (SQLException e) {
                 LOG.error("Error con la conexion de base de datos", e);
                 mostrarAlerta("Error", "Error de conexión con la base de datos: " + e.getMessage(), Alert.AlertType.ERROR);
+                
             } catch (IOException e) {
-                LOG.error("Error al registrar la organización",e);
+                LOG.error("Error al registrar la organización", e);
                 mostrarAlerta("Error", "Error al registrar la organización: " + e.getMessage(), Alert.AlertType.ERROR);
+                
             } 
         }
     }

@@ -5,9 +5,12 @@
         <group>
             <file>file:/C:/Users/User/Documents/NetBeansProjects/PracticasProfesionalesConstruccion/src/controladoresdegrafica/MenuPrincipalCoordinadorController.java</file>
             <file>file:/C:/Users/User/Documents/NetBeansProjects/PracticasProfesionalesConstruccion/src/controladoresdegrafica/GestionOrganizacionVinculadaController.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/PracticasProfesionalesConstruccion/src/accesoadatos/ConfiguracionDB.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/PracticasProfesionalesConstruccion/src/grafica/FXMLGestionOrganizacionVinculada.fxml</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/PracticasProfesionalesConstruccion/src/principal/PracticasProfesionales.java</file>
             <file>file:/C:/Users/User/Documents/NetBeansProjects/PracticasProfesionalesConstruccion/src/grafica/FXMLMenuPrincipalCoordinador.fxml</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/PracticasProfesionalesConstruccion/src/grafica/FXMLGestionOrganizacionVinculada.fxml</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/PracticasProfesionalesConstruccion/src/controladoresdegrafica/RegistroOrganizacionVinculadaController.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/PracticasProfesionalesConstruccion/src/accesoadatos/ConexionBD.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/PracticasProfesionalesConstruccion/src/accesoadatos/ConfiguracionDB.java</file>
         </group>
     </open-files>
 </project-private>

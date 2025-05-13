@@ -9,12 +9,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 public class GestionOrganizacionVinculadaController{
     
-    private static final Logger LOG = LogManager.getLogger(GestionOrganizacionVinculadaController.class);
+    private static final Logger LOG = Logger.getLogger(GestionOrganizacionVinculadaController.class);
     
     @FXML
     private Button botonSalir;    
@@ -24,15 +23,15 @@ public class GestionOrganizacionVinculadaController{
         
         try {
 
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/grafica/FXMLRegistroOV.fxml"));
-                Parent root = loader.load();            
-                Stage stage = new Stage();
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.setTitle("Registro de Organizaciones");
-                stage.setScene(new Scene(root));
-                stage.showAndWait();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/grafica/FXMLRegistroOV.fxml"));
+            Parent root = loader.load();            
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Registro de Organizaciones");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
 
-            } catch (IOException ex) {
+        } catch (IOException ex) {
             LOG.error("Error al cargar la ventana de registro OV: " + ex.getMessage());
         }
     }
