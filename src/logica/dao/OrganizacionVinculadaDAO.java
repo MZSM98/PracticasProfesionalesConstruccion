@@ -70,9 +70,9 @@ public class OrganizacionVinculadaDAO implements InterfazOrganizacionVinculadaDA
             declaracionPreparada.setString(1, organizacionVinculada.getNombreOV());
             declaracionPreparada.setString(2, organizacionVinculada.getDireccionOV());
             declaracionPreparada.setString(3, organizacionVinculada.getTelefonoOV());
-            declaracionPreparada.setString(4, organizacionVinculada.getRfcMoral());
             declaracionPreparada.setString(4, organizacionVinculada.getEstadoOV());
-            
+            declaracionPreparada.setString(5, organizacionVinculada.getRfcMoral());
+                        
             declaracionPreparada.executeUpdate();
             actualizacionExitosa = true;
             
