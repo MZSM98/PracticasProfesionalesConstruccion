@@ -11,26 +11,28 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+
 
 public class RegistroOrganizacionVinculadaController {    
     
-    private static final Logger LOG = LogManager.getLogger(GestionOrganizacionVinculadaController.class);
+    private static final Logger LOG = Logger.getLogger(GestionOrganizacionVinculadaController.class);
     
     @FXML
     private TextField textRfcOV, textNombreOV, textTelefonoOV, textDireccionOV;
     
     @FXML 
-    private Button botonCancelarRegistroOV, botonRegistrarOrganizacionVinculada;
+    private Button botonCancelarRegistroOV;
     
     private OrganizacionVinculadaDAO organizacionVinculadaDAO;
     private OrganizacionVinculadaDTO organizacionVinculadaDTO;
+    
     
     @FXML
     private void registrarOrganizacionVinculada(ActionEvent evento) {
         
         organizacionVinculadaDTO = new OrganizacionVinculadaDTO();
+        organizacionVinculadaDAO = new OrganizacionVinculadaDAO();
         
         organizacionVinculadaDTO.setRfcMoral(textRfcOV.getText());
         organizacionVinculadaDTO.setNombreOV(textNombreOV.getText());
@@ -76,6 +78,7 @@ public class RegistroOrganizacionVinculadaController {
     }
     
     private boolean validarCamposVacios() {
+        
         if (textRfcOV.getText().isEmpty() || textNombreOV.getText().isEmpty() ||
             textTelefonoOV.getText().isEmpty() || textDireccionOV.getText().isEmpty()) {
             

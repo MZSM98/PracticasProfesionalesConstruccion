@@ -10,6 +10,7 @@ public class ConexionBD {
     private final Connection conexionBD;
     
     public ConexionBD() throws SQLException {
+        
         Properties props = ConfiguracionDB.loadProperties();
         String URL = props.getProperty("db.url");
         String USER = props.getProperty("db.user");
