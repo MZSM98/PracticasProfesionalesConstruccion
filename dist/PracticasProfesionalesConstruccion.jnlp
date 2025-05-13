@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" java-vm-args="-Dprism.verbose=true -Djavafx.verbose=true "  href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="PracticasProfesionalesConstruccion.jar" size="46672" download="eager" />
+    <jar href="PracticasProfesionalesConstruccion.jar" size="46891" download="eager" />
     <jar href="lib\log4j-1.2.17.jar" size="489884" download="eager" />
     <jar href="lib\mysql-connector-j-9.2.0.jar" size="2609756" download="eager" />
   </resources>

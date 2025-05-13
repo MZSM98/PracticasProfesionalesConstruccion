@@ -23,16 +23,16 @@ public class GestionOrganizacionVinculadaController{
     private void abrirRegistroOV(ActionEvent event) {
         
         try {
-            
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/grafica/FXMLRegistroOV.fxml"));
-            Parent root = loader.load();            
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("Registro de Organizaciones");
-            stage.setScene(new Scene(root));
-            stage.showAndWait();
-            
-        } catch (IOException ex) {
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/grafica/FXMLRegistroOV.fxml"));
+                Parent root = loader.load();            
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setTitle("Registro de Organizaciones");
+                stage.setScene(new Scene(root));
+                stage.showAndWait();
+
+            } catch (IOException ex) {
             LOG.error("Error al cargar la ventana de registro OV: " + ex.getMessage());
         }
     }

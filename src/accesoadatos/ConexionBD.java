@@ -14,6 +14,14 @@ public class ConexionBD {
         String URL = props.getProperty("db.url");
         String USER = props.getProperty("db.user");
         String PASSWORD = props.getProperty("db.password");
+        try {
+        
+            Class.forName("com.mysql.cj.jdbc.Driver"); 
+
+        } catch (ClassNotFoundException e) {
+            throw new SQLException("Driver de base de datos no encontrado", e);
+        }
+        
         this.conexionBD = DriverManager.getConnection(URL, USER, PASSWORD);        
     }
     
