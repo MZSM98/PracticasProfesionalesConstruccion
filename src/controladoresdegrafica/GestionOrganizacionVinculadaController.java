@@ -88,6 +88,7 @@ public class GestionOrganizacionVinculadaController implements Initializable {
         
     @FXML
     private void abrirRegistroOV(ActionEvent event) {
+        
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/grafica/FXMLRegistroOV.fxml"));
             Parent root = loader.load();            

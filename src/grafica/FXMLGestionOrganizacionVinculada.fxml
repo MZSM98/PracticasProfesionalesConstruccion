@@ -9,13 +9,13 @@
 
 <AnchorPane id="AnchorPane" prefHeight="465.0" prefWidth="701.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladoresdegrafica.GestionOrganizacionVinculadaController">
    <children>
-      <TableView layoutX="14.0" layoutY="116.0" prefHeight="328.0" prefWidth="597.0">
+      <TableView fx:id="tableOrganizacionesVinculadas" layoutX="14.0" layoutY="116.0" prefHeight="328.0" prefWidth="597.0">
         <columns>
-          <TableColumn editable="false" prefWidth="75.0" text="RFC" />
-          <TableColumn editable="false" prefWidth="144.6666488647461" text="Nombre" />
-            <TableColumn minWidth="0.0" prefWidth="108.66670227050781" text="Telefono" />
-            <TableColumn prefWidth="199.33328247070312" text="Direccion" />
-            <TableColumn prefWidth="67.33331298828125" text="Estado" />
+          <TableColumn fx:id="columnRFC" editable="false" prefWidth="75.0" text="RFC" />
+          <TableColumn fx:id="columnNombre" editable="false" prefWidth="144.6666488647461" text="Nombre" />
+            <TableColumn fx:id="columnTelefono" minWidth="0.0" prefWidth="108.66670227050781" text="Telefono" />
+            <TableColumn fx:id="columnDireccion" prefWidth="199.33328247070312" text="Direccion" />
+            <TableColumn fx:id="columnEstado" prefWidth="67.33331298828125" text="Estado" />
         </columns>
       </TableView>
       <Label layoutX="207.0" layoutY="43.0" text="Organizaciones Vinculadas">
