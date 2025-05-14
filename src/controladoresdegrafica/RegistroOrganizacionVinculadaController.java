@@ -2,8 +2,10 @@ package controladoresdegrafica;
 
 import logica.dao.OrganizacionVinculadaDAO;
 import accesoadatos.dto.OrganizacionVinculadaDTO;
+import accesoadatos.dto.OrganizacionVinculadaDTO.EstadoOrganizacionVinculada;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -11,10 +13,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
+import logica.funcionalidades.ValidacionDeDatos;
 
 public class RegistroOrganizacionVinculadaController {    
     
-    private static final Logger LOG = Logger.getLogger(GestionOrganizacionVinculadaController.class);
+    private static final Logger LOG = Logger.getLogger(RegistroOrganizacionVinculadaController.class);
     
     @FXML
     private TextField textRfcOV, textNombreOV, textTelefonoOV, textDireccionOV;
@@ -42,7 +45,6 @@ public class RegistroOrganizacionVinculadaController {
     }
     
     public void llenarCamposEditablesOrganizacionVinculada(OrganizacionVinculadaDTO organizacion) {
-        
         this.organizacionVinculadaDTO = organizacion;
         
         textRfcOV.setText(organizacion.getRfcMoral());
@@ -51,68 +53,94 @@ public class RegistroOrganizacionVinculadaController {
         textDireccionOV.setText(organizacion.getDireccionOV());
         
         textRfcOV.setDisable(modoEdicion);
-        
     }
     
     @FXML
     private void registrarOrganizacionVinculada(ActionEvent evento) {
-        
-        if (validarCamposVacios() == false) {
+        if (!validarCampos()) {
             return;
         }
         
         if (modoEdicion) {
+            actualizarOrganizacionVinculada();
+        } else {
+            crearNuevaOrganizacionVinculada();
+        }
+    }
+    
+    private boolean validarCampos() {
+        
+        String rfc = textRfcOV.getText().trim();
+        String nombre = textNombreOV.getText().trim();
+        String telefono = textTelefonoOV.getText().trim();
+        String direccion = textDireccionOV.getText().trim();
+        
+        try {
+            ValidacionDeDatos.validarOrganizacionVinculada(rfc, nombre, telefono, direccion);
+            return true;
+        } catch (IllegalArgumentException e) {
+            LOG.error ("Se ingresaron datos inválidos");
+            mostrarAlerta("Datos Inválidos o Incompletos", e.getMessage(), Alert.AlertType.WARNING);
+            return false;
+        }
+    }
+    
+    private void crearNuevaOrganizacionVinculada() {
+        organizacionVinculadaDTO = new OrganizacionVinculadaDTO();
+        
+        organizacionVinculadaDTO.setRfcMoral(textRfcOV.getText().trim());
+        organizacionVinculadaDTO.setNombreOV(textNombreOV.getText().trim());
+        organizacionVinculadaDTO.setTelefonoOV(textTelefonoOV.getText().trim());
+        organizacionVinculadaDTO.setDireccionOV(textDireccionOV.getText().trim());
+        organizacionVinculadaDTO.setEstadoOV(EstadoOrganizacionVinculada.ACTIVO.name()); 
+        
+        try {
+            organizacionVinculadaDAO.insertarOrganizacionVinculada(organizacionVinculadaDTO);
+            mostrarAlerta("Éxito", "Organización Registrada", Alert.AlertType.INFORMATION);
+            limpiarCampos();
             
-            organizacionVinculadaDTO.setNombreOV(textNombreOV.getText());
-            organizacionVinculadaDTO.setTelefonoOV(textTelefonoOV.getText());
-            organizacionVinculadaDTO.setDireccionOV(textDireccionOV.getText());
+        } catch(SQLIntegrityConstraintViolationException icve){
             
-            try {
-                boolean actualizacionExitosa = organizacionVinculadaDAO.editarOrganizacionVinculada(organizacionVinculadaDTO);
-                
-                if (actualizacionExitosa) {
-                    mostrarAlerta("Éxito", "Organización actualizada correctamente", Alert.AlertType.INFORMATION);
-                    Stage stage = (Stage) botonCancelarRegistroOV.getScene().getWindow();
-                    stage.close();
-                } else {
-                    mostrarAlerta("Error", "No se pudo actualizar la organización", Alert.AlertType.ERROR);
-                }
-                
-            } catch (SQLException e) {
-                LOG.error("Error con la conexión de base de datos", e);
-                mostrarAlerta("Error", "Error de conexión con la base de datos: " + e.getMessage(), Alert.AlertType.ERROR);
-            } catch (IOException e) {
-                LOG.error("Error al actualizar la organización", e);
-                mostrarAlerta("Error", "Error al actualizar la organización: " + e.getMessage(), Alert.AlertType.ERROR);
+        } catch (SQLException e) {
+            LOG.error("Error con la conexion de base de datos", e);
+            mostrarAlerta("Error", "Error de conexión con la base de datos: " + e.getMessage(), Alert.AlertType.ERROR);
+            
+        } catch (IOException e) {
+            LOG.error("Error al registrar la organización", e);
+            mostrarAlerta("Error", "Error al registrar la organización: " + e.getMessage(), Alert.AlertType.ERROR);
+        } 
+    }
+    
+    private void actualizarOrganizacionVinculada() {
+        organizacionVinculadaDTO.setNombreOV(textNombreOV.getText().trim());
+        organizacionVinculadaDTO.setTelefonoOV(textTelefonoOV.getText().trim());
+        organizacionVinculadaDTO.setDireccionOV(textDireccionOV.getText().trim());
+        
+        try {
+            boolean actualizacionExitosa = organizacionVinculadaDAO.editarOrganizacionVinculada(organizacionVinculadaDTO);
+            
+            if (actualizacionExitosa) {
+                mostrarAlerta("Éxito", "Organización actualizada correctamente", Alert.AlertType.INFORMATION);
+                cerrarVentana();
+            } else {
+                mostrarAlerta("Error", "No se pudo actualizar la organización", Alert.AlertType.ERROR);
             }
             
-        } else {
-            
-            organizacionVinculadaDTO = new OrganizacionVinculadaDTO();
-            
-            organizacionVinculadaDTO.setRfcMoral(textRfcOV.getText());
-            organizacionVinculadaDTO.setNombreOV(textNombreOV.getText());
-            organizacionVinculadaDTO.setTelefonoOV(textTelefonoOV.getText());
-            organizacionVinculadaDTO.setDireccionOV(textDireccionOV.getText());
-            
-            try {
-                organizacionVinculadaDAO.insertarOrganizacionVinculada(organizacionVinculadaDTO);
-                mostrarAlerta("Éxito", "Organización Registrada", Alert.AlertType.INFORMATION);
-                limpiarCampos();
-                
-            } catch (SQLException e) {
-                LOG.error("Error con la conexion de base de datos", e);
-                mostrarAlerta("Error", "Error de conexión con la base de datos: " + e.getMessage(), Alert.AlertType.ERROR);
-                
-            } catch (IOException e) {
-                LOG.error("Error al registrar la organización", e);
-                mostrarAlerta("Error", "Error al registrar la organización: " + e.getMessage(), Alert.AlertType.ERROR);
-            } 
+        } catch (SQLException e) {
+            LOG.error("Error con la conexión de base de datos", e);
+            mostrarAlerta("Error", "Error de conexión con la base de datos: " + e.getMessage(), Alert.AlertType.ERROR);
+        } catch (IOException e) {
+            LOG.error("Error al actualizar la organización", e);
+            mostrarAlerta("Error", "Error al actualizar la organización: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
     
     @FXML
     private void cancelarRegistroOrganizacionVinculada(ActionEvent evento) {
+        cerrarVentana();
+    }
+    
+    private void cerrarVentana() {
         Stage stage = (Stage) botonCancelarRegistroOV.getScene().getWindow();
         stage.close();
     }
@@ -131,19 +159,4 @@ public class RegistroOrganizacionVinculadaController {
         alerta.setContentText(mensaje);
         alerta.showAndWait();
     }
-    
-    
-    
-    private boolean validarCamposVacios() {
-        
-        if (textRfcOV.getText().isEmpty() || textNombreOV.getText().isEmpty() ||
-            textTelefonoOV.getText().isEmpty() || textDireccionOV.getText().isEmpty()) {
-            
-            mostrarAlerta("Error", "Todos los campos son obligatorios", Alert.AlertType.WARNING);
-            return false;
-        }
-        return true;
-    }
-    
-    
 }

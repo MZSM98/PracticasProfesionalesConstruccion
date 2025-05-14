@@ -20,6 +20,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
 import accesoadatos.dto.OrganizacionVinculadaDTO;
+import accesoadatos.dto.OrganizacionVinculadaDTO.EstadoOrganizacionVinculada;
 import logica.dao.OrganizacionVinculadaDAO;
 
 import java.net.URL;
@@ -153,7 +154,8 @@ public class GestionOrganizacionVinculadaController implements Initializable {
         }
         
         String estadoActual = organizacionSeleccionada.getEstadoOV();
-        String nuevoEstado = "activo".equals(estadoActual) ? "inactivo" : "activo";
+        String nuevoEstado = estadoActual.equalsIgnoreCase(EstadoOrganizacionVinculada.ACTIVO.name()) ? 
+                EstadoOrganizacionVinculada.INACTIVO.name() : EstadoOrganizacionVinculada.ACTIVO.name();
         
         organizacionSeleccionada.setEstadoOV(nuevoEstado);
         

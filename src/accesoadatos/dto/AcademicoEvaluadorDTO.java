@@ -4,8 +4,9 @@ package accesoadatos.dto;
 public class AcademicoEvaluadorDTO {
     private String numeroDeTrabajador;
     private String nombreAcademico;
-
+    
     public String getNumeroDeTrabajador() {
+        
         return numeroDeTrabajador;
     }
 
@@ -20,6 +21,5 @@ public class AcademicoEvaluadorDTO {
     public void setNombreAcademico(String nombreAcademico) {
         this.nombreAcademico = nombreAcademico;
     }
-    
-    
+        
 }

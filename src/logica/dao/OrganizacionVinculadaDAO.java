@@ -2,6 +2,7 @@ package logica.dao;
 
 import logica.interfaces.InterfazOrganizacionVinculadaDAO;
 import accesoadatos.dto.OrganizacionVinculadaDTO;
+import accesoadatos.dto.OrganizacionVinculadaDTO.EstadoOrganizacionVinculada;
 import accesoadatos.ConexionBD;
 import java.io.IOException;
 import java.sql.SQLException;

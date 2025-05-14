@@ -8,9 +8,7 @@ public class OrganizacionVinculadaDTO {
     private String telefonoOV;
     private String direccionOV;
     private String estadoOV;
-
     
-            
     public String getRfcMoral() {
         return rfcMoral;
     }
@@ -43,11 +41,15 @@ public class OrganizacionVinculadaDTO {
         this.telefonoOV = telefonoOV;
     }
     
+    
     public String getEstadoOV() {
         return estadoOV;
     }
-
+    
     public void setEstadoOV(String estadoOV) {
         this.estadoOV = estadoOV;
     }
+    
+    public enum EstadoOrganizacionVinculada {ACTIVO,INACTIVO};
+    
 }
