@@ -44,78 +44,76 @@ public class RegistroOrganizacionVinculadaController {
         }
     }
     
-    public void llenarCamposEditablesOrganizacionVinculada(OrganizacionVinculadaDTO organizacion) {
-        this.organizacionVinculadaDTO = organizacion;
+    public void llenarCamposEditablesOrganizacionVinculada(OrganizacionVinculadaDTO organizacionVinculadaDTO) {
+        this.organizacionVinculadaDTO = organizacionVinculadaDTO;
         
-        textRfcOV.setText(organizacion.getRfcMoral());
-        textNombreOV.setText(organizacion.getNombreOV());
-        textTelefonoOV.setText(organizacion.getTelefonoOV());
-        textDireccionOV.setText(organizacion.getDireccionOV());
+        textRfcOV.setText(organizacionVinculadaDTO.getRfcMoral());
+        textNombreOV.setText(organizacionVinculadaDTO.getNombreOV());
+        textTelefonoOV.setText(organizacionVinculadaDTO.getTelefonoOV());
+        textDireccionOV.setText(organizacionVinculadaDTO.getDireccionOV());
         
         textRfcOV.setDisable(modoEdicion);
     }
     
     @FXML
     private void registrarOrganizacionVinculada(ActionEvent evento) {
-        if (!validarCampos()) {
-            return;
+        if(!modoEdicion){
+            organizacionVinculadaDTO = new OrganizacionVinculadaDTO();
         }
-        
-        if (modoEdicion) {
-            actualizarOrganizacionVinculada();
-        } else {
-            crearNuevaOrganizacionVinculada();
-        }
-    }
-    
-    private boolean validarCampos() {
-        
-        String rfc = textRfcOV.getText().trim();
-        String nombre = textNombreOV.getText().trim();
-        String telefono = textTelefonoOV.getText().trim();
-        String direccion = textDireccionOV.getText().trim();
-        
-        try {
-            ValidacionDeDatos.validarOrganizacionVinculada(rfc, nombre, telefono, direccion);
-            return true;
-        } catch (IllegalArgumentException e) {
-            LOG.error ("Se ingresaron datos inválidos");
-            mostrarAlerta("Datos Inválidos o Incompletos", e.getMessage(), Alert.AlertType.WARNING);
-            return false;
-        }
-    }
-    
-    private void crearNuevaOrganizacionVinculada() {
-        organizacionVinculadaDTO = new OrganizacionVinculadaDTO();
-        
         organizacionVinculadaDTO.setRfcMoral(textRfcOV.getText().trim());
         organizacionVinculadaDTO.setNombreOV(textNombreOV.getText().trim());
         organizacionVinculadaDTO.setTelefonoOV(textTelefonoOV.getText().trim());
         organizacionVinculadaDTO.setDireccionOV(textDireccionOV.getText().trim());
-        organizacionVinculadaDTO.setEstadoOV(EstadoOrganizacionVinculada.ACTIVO.name()); 
         
+        
+        if (!validarCampos(organizacionVinculadaDTO)) {
+            return;
+        }
+        
+        if (modoEdicion) {
+            actualizarOrganizacionVinculada(organizacionVinculadaDTO);
+        } else {
+            crearNuevaOrganizacionVinculada(organizacionVinculadaDTO);
+        }
+    }
+    
+    private boolean validarCampos(OrganizacionVinculadaDTO organizacionVinculadaDTO) {
+               
+        try {
+            ValidacionDeDatos.validarOrganizacionVinculada(organizacionVinculadaDTO);
+            return true;
+        } catch (IllegalArgumentException iae) {
+            LOG.error ("Se ingresaron datos inválidos");
+            mostrarAlerta("Datos Inválidos o Incompletos", iae.getMessage(), Alert.AlertType.WARNING);
+            return false;
+        }
+    }
+    
+    private void crearNuevaOrganizacionVinculada(OrganizacionVinculadaDTO organizacionVinculadaDTO) {
+        
+       organizacionVinculadaDTO.setEstadoOV(EstadoOrganizacionVinculada.ACTIVO.name()); 
+               
         try {
             organizacionVinculadaDAO.insertarOrganizacionVinculada(organizacionVinculadaDTO);
             mostrarAlerta("Éxito", "Organización Registrada", Alert.AlertType.INFORMATION);
             limpiarCampos();
             
         } catch(SQLIntegrityConstraintViolationException icve){
+            LOG.error(icve);
+            mostrarAlerta("Error", "La Organización que está tratando de registrar ya existe", Alert.AlertType.WARNING);
             
         } catch (SQLException e) {
             LOG.error("Error con la conexion de base de datos", e);
-            mostrarAlerta("Error", "Error de conexión con la base de datos: " + e.getMessage(), Alert.AlertType.ERROR);
+            mostrarAlerta("Error", "Error de conexión con la base de datos: ", Alert.AlertType.ERROR);
             
         } catch (IOException e) {
             LOG.error("Error al registrar la organización", e);
-            mostrarAlerta("Error", "Error al registrar la organización: " + e.getMessage(), Alert.AlertType.ERROR);
+            mostrarAlerta("Error", "Error al registrar la organización: ", Alert.AlertType.ERROR);
         } 
     }
     
-    private void actualizarOrganizacionVinculada() {
-        organizacionVinculadaDTO.setNombreOV(textNombreOV.getText().trim());
-        organizacionVinculadaDTO.setTelefonoOV(textTelefonoOV.getText().trim());
-        organizacionVinculadaDTO.setDireccionOV(textDireccionOV.getText().trim());
-        
+    private void actualizarOrganizacionVinculada(OrganizacionVinculadaDTO organizacionVinculadaDTO) {
+                
         try {
             boolean actualizacionExitosa = organizacionVinculadaDAO.editarOrganizacionVinculada(organizacionVinculadaDTO);
             

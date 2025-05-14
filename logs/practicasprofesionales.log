@@ -396,3 +396,45 @@ java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '123456789012
 	at java.lang.Thread.run(Thread.java:748)
 2025-05-13 22:16:08,546 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - Se ingresaron datos inválidos
 2025-05-13 22:16:16,573 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - Se ingresaron datos inválidos
+2025-05-13 22:18:33,866 [JavaFX Application Thread] INFO  principal.PracticasProfesionales - Se inició correctamente el log
+2025-05-13 22:18:48,841 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - Se ingresaron datos inválidos
+2025-05-13 22:18:55,337 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - Se ingresaron datos inválidos
+2025-05-13 22:18:59,905 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - Se ingresaron datos inválidos
+2025-05-13 22:19:32,275 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - Se ingresaron datos inválidos
+2025-05-13 22:20:13,457 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '123456789012' for key 'organizacionvinculada.PRIMARY'
+2025-05-13 22:43:44,615 [JavaFX Application Thread] INFO  principal.PracticasProfesionales - Se inició correctamente el log
+2025-05-13 22:44:02,717 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - Se ingresaron datos inválidos
+2025-05-13 22:44:09,440 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - Se ingresaron datos inválidos
+2025-05-13 22:44:18,721 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - Se ingresaron datos inválidos
+2025-05-13 22:44:26,128 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - Se ingresaron datos inválidos
+2025-05-13 22:44:34,731 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '123456789012' for key 'organizacionvinculada.PRIMARY'
+2025-05-13 23:02:18,883 [JavaFX Application Thread] INFO  principal.PracticasProfesionales - Se inició correctamente el log
+2025-05-13 23:04:03,640 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - Se ingresaron datos con caracteres inválidos
+2025-05-13 23:04:19,298 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - Se ingresaron datos con caracteres inválidos
+2025-05-13 23:04:23,230 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - Se ingresaron datos con caracteres inválidos
+2025-05-13 23:04:53,590 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - Se ingresaron datos con caracteres inválidos
+2025-05-13 23:04:58,011 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - Se ingresaron datos con caracteres inválidos
+2025-05-13 23:05:04,079 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - Se ingresaron datos con caracteres inválidos
+2025-05-13 23:05:50,143 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - Se ingresaron datos con caracteres inválidos
+2025-05-13 23:06:16,631 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - Se ingresaron datos con caracteres inválidos
+2025-05-13 23:06:22,019 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - Se ingresaron datos con caracteres inválidos
+2025-05-13 23:06:27,643 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - Se ingresaron datos con caracteres inválidos
+2025-05-13 23:06:32,852 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - Se ingresaron datos con caracteres inválidos
+2025-05-13 23:06:40,689 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - Se ingresaron datos con caracteres inválidos
+2025-05-13 23:06:59,806 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - Se ingresaron datos con caracteres inválidos
+2025-05-13 23:07:55,778 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - Se ingresaron datos con caracteres inválidos
+2025-05-13 23:29:45,443 [JavaFX Application Thread] INFO  principal.PracticasProfesionales - Se inició correctamente el log
+2025-05-13 23:56:10,847 [JavaFX Application Thread] INFO  principal.PracticasProfesionales - Se inició correctamente el log
+2025-05-14 00:00:17,802 [JavaFX Application Thread] INFO  principal.PracticasProfesionales - Se inició correctamente el log
+2025-05-14 00:08:33,352 [JavaFX Application Thread] INFO  principal.PracticasProfesionales - Se inició correctamente el log
+2025-05-14 00:08:39,391 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - Se ingresaron datos inválidos
+2025-05-14 00:14:15,508 [JavaFX Application Thread] INFO  principal.PracticasProfesionales - Se inició correctamente el log
+2025-05-14 00:15:48,907 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - Se ingresaron datos inválidos
+2025-05-14 00:17:40,372 [JavaFX Application Thread] INFO  principal.PracticasProfesionales - Se inició correctamente el log
+2025-05-14 00:18:24,243 [JavaFX Application Thread] INFO  principal.PracticasProfesionales - Se inició correctamente el log
+2025-05-14 00:19:26,691 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - Se ingresaron datos inválidos
+2025-05-14 00:20:24,853 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - Se ingresaron datos inválidos
+2025-05-14 00:22:12,498 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - Se ingresaron datos inválidos
+2025-05-14 00:22:44,173 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - Se ingresaron datos inválidos
+2025-05-14 00:25:01,995 [JavaFX Application Thread] ERROR controladoresdegrafica.RegistroOrganizacionVinculadaController - Se ingresaron datos inválidos
+2025-05-14 00:40:26,929 [JavaFX Application Thread] INFO  principal.PracticasProfesionales - Se inició correctamente el log
