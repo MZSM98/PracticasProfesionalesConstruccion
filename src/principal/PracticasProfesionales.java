@@ -15,7 +15,7 @@ public class PracticasProfesionales extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         
-        PropertyConfigurator.configure("resources/log4j.properties");
+        PropertyConfigurator.configure("C:\\Users\\User\\Documents\\NetBeansProjects\\PracticasProfesionalesConstruccion\\src\\resources\\log4j.properties");
         LOG.info("Se inició correctamente el log");
         
         Parent root = FXMLLoader.load(getClass().getResource("/grafica/FXMLMenuPrincipalCoordinador.fxml"));

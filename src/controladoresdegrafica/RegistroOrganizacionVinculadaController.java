@@ -132,6 +132,8 @@ public class RegistroOrganizacionVinculadaController {
         alerta.showAndWait();
     }
     
+    
+    
     private boolean validarCamposVacios() {
         
         if (textRfcOV.getText().isEmpty() || textNombreOV.getText().isEmpty() ||
@@ -142,4 +144,6 @@ public class RegistroOrganizacionVinculadaController {
         }
         return true;
     }
+    
+    
 }
