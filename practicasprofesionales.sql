@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 8.0.39, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
 --
 -- Host: localhost    Database: practicasprofesionales
 -- ------------------------------------------------------
@@ -7,7 +7,7 @@
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8mb4 */;
+/*!50503 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -134,6 +134,7 @@ CREATE TABLE `organizacionvinculada` (
   `nombreOV` varchar(45) NOT NULL,
   `telefonoOV` varchar(10) NOT NULL,
   `direccionOV` varchar(200) NOT NULL,
+  `estadoOV` enum('ACTIVO','INACTIVO') NOT NULL DEFAULT 'ACTIVO',
   PRIMARY KEY (`rfcMoral`),
   UNIQUE KEY `rfc_UNIQUE` (`rfcMoral`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
@@ -145,7 +146,7 @@ CREATE TABLE `organizacionvinculada` (
 
 LOCK TABLES `organizacionvinculada` WRITE;
 /*!40000 ALTER TABLE `organizacionvinculada` DISABLE KEYS */;
-INSERT INTO `organizacionvinculada` VALUES ('123456789012','Marcos','1234567890','papas 12'),('1234567890MA','Registro Test','2282929871','Moral 1234'),('SAMM981231A0','Tecno Pollos','2282929871','Av Villa Hermosa 23, Col Revolución'),('SAMM981231HV','SiDotcom','2282929871','Av Americas 123');
+INSERT INTO `organizacionvinculada` VALUES ('123456789012','Marcos','1234567890','papas 12','ACTIVO'),('1234567890IU','Edgar','1234567890','lksajdljsad','INACTIVO'),('1234567890MA','Registro Test','2282929871','Moral 1234','INACTIVO'),('1234567890yh','qwertyu','1234567890','styui','ACTIVO'),('134821948782','asdfghj','1234567890','americas 12345','ACTIVO'),('SAMM981231A0','Tecno Pollos','2282929871','Av Villa Hermosa 23, Col Revolución','INACTIVO'),('SAMM981231HU','Marcos 2','2282982871','Araucarias','ACTIVO'),('SAMM981231HV','SiDotcom','2282929871','Av Americas 123','ACTIVO'),('SAMM981231KJ','Testing','1234567890','Araucarias 12','ACTIVO'),('SAMM981231MQ','Corps Tech','2282929871','Araucarias 123','ACTIVO');
 /*!40000 ALTER TABLE `organizacionvinculada` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -259,6 +260,30 @@ LOCK TABLES `representanteov` WRITE;
 /*!40000 ALTER TABLE `representanteov` DISABLE KEYS */;
 /*!40000 ALTER TABLE `representanteov` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `usuarios`
+--
+
+DROP TABLE IF EXISTS `usuarios`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `usuarios` (
+  `tipo_usuario` enum('coordinador','estudiante','evaluador','profesor') NOT NULL,
+  `usuario` varchar(15) NOT NULL,
+  `contrasenia` varchar(64) NOT NULL,
+  PRIMARY KEY (`usuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuarios`
+--
+
+LOCK TABLES `usuarios` WRITE;
+/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
+/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -269,4 +294,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-12 23:43:53
+-- Dump completed on 2025-05-14 22:07:36

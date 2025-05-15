@@ -72,19 +72,20 @@ public class GestionOrganizacionVinculadaController implements Initializable {
     private void cargarOrganizacionesVinculadas() {
         
         try {            
+            
             List<OrganizacionVinculadaDTO> organizaciones = organizacionVinculadaDAO.listarOrganizacionesVinculadas();
             listaOrganizacionesVinculadas = FXCollections.observableArrayList(organizaciones);
             tableOrganizacionesVinculadas.setItems(listaOrganizacionesVinculadas);
             
-        } catch (SQLException e) {
+        } catch (SQLException sqle) {
             
-            LOG.error("Error al cargar las organizaciones vinculadas: " + e.getMessage());
-            mostrarAlerta("Error", "No se pudieron cargar las organizaciones vinculadas: " + e.getMessage(), Alert.AlertType.ERROR);
+            LOG.error("Error al cargar las organizaciones vinculadas: " + sqle.getMessage());
+            mostrarAlerta("Error", "No se pudieron cargar las organizaciones vinculadas: ", Alert.AlertType.ERROR);
             
-        } catch (IOException e){
+        } catch (IOException ioe){
             
-            LOG.error("No se lograron cargar los registros",e);
-            mostrarAlerta("Error", "No se pudieron cargar las organizaciones vinculadas: " + e.getMessage(), Alert.AlertType.ERROR);
+            LOG.error("No se lograron cargar los registros" + ioe.getMessage());
+            mostrarAlerta("Error", "No se pudieron cargar las organizaciones vinculadas", Alert.AlertType.ERROR);
         }
     }
         
@@ -92,6 +93,7 @@ public class GestionOrganizacionVinculadaController implements Initializable {
     private void abrirRegistroOV(ActionEvent event) {
         
         try {
+            
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/grafica/FXMLRegistroOV.fxml"));
             Parent root = loader.load();            
             Stage stage = new Stage();
@@ -102,9 +104,10 @@ public class GestionOrganizacionVinculadaController implements Initializable {
             
             cargarOrganizacionesVinculadas();
 
-        } catch (IOException e) {
-            LOG.error("Error al cargar la ventana de registro OV: " + e.getMessage());
-            mostrarAlerta ("Error", "Ha ocurrido un error, intentelo más tarde" + e.getMessage(), Alert.AlertType.ERROR);
+        } catch (IOException ioe) {
+            
+            LOG.error("Error al cargar la ventana de registro OV: " + ioe.getMessage());
+            mostrarAlerta ("Error", "Ha ocurrido un error, intentelo más tarde", Alert.AlertType.ERROR);
             
         }
         
@@ -121,6 +124,7 @@ public class GestionOrganizacionVinculadaController implements Initializable {
         }
         
         try {
+            
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/grafica/FXMLRegistroOV.fxml"));
             Parent root = loader.load();
             
@@ -136,9 +140,10 @@ public class GestionOrganizacionVinculadaController implements Initializable {
             
             cargarOrganizacionesVinculadas();
             
-        } catch (IOException ex) {
-            LOG.error("Error al cargar la ventana de edición OV: " + ex.getMessage());
-            mostrarAlerta("Error", "No se pudo abrir la ventana de edición: " + ex.getMessage(), Alert.AlertType.ERROR);
+        } catch (IOException ioe) {
+            
+            LOG.error("Error al cargar la ventana de edición OV: " + ioe.getMessage());
+            mostrarAlerta("Error", "No se pudo abrir la ventana de edición: ", Alert.AlertType.ERROR);
         }
         
     }
@@ -154,6 +159,7 @@ public class GestionOrganizacionVinculadaController implements Initializable {
         }
         
         String estadoActual = organizacionSeleccionada.getEstadoOV();
+        
         String nuevoEstado = estadoActual.equalsIgnoreCase(EstadoOrganizacionVinculada.ACTIVO.name()) ? 
                 EstadoOrganizacionVinculada.INACTIVO.name() : EstadoOrganizacionVinculada.ACTIVO.name();
         
@@ -176,11 +182,11 @@ public class GestionOrganizacionVinculadaController implements Initializable {
         } catch (SQLException e) {
             
             LOG.error("Error de conexión con la base de datos: " + e.getMessage());
-            mostrarAlerta("Error", "Error al conectar con la base de datos: " + e.getMessage(), Alert.AlertType.ERROR);
+            mostrarAlerta("Error", "Error al conectar con la base de datos: ", Alert.AlertType.ERROR);
         } catch (IOException e){
             
             LOG.error("Error al cambiar estado de la organización: " + e.getMessage());
-            mostrarAlerta("Error", "Error al actualizar el registro" + e.getMessage(), Alert.AlertType.ERROR);
+            mostrarAlerta("Error", "Error al actualizar el registro", Alert.AlertType.ERROR);
         }
     }
     
