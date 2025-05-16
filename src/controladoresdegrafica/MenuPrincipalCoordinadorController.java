@@ -25,7 +25,7 @@ public class MenuPrincipalCoordinadorController{
         
         try {
             
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/grafica/FXMLGestionOrganizacionVinculada.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("grafica/organizacionvinculada/FXMLGestionOrganizacionVinculada.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -40,6 +40,25 @@ public class MenuPrincipalCoordinadorController{
         }        
     }
     
+        @FXML    
+    private void abrirGestionAcademico(ActionEvent event){
+        
+        try {
+            
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/grafica/academico/FXMLGestionAcademicoEvaluador.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Gestión Académicos");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();            
+            
+        } catch (IOException ex) {
+            
+            LOG.error("Error al cargar la ventana de registro OV: " + ex.getMessage());
+            
+        }        
+    }
     
     @FXML
     private void cerrarSesion() {

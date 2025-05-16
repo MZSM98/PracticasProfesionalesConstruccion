@@ -3,7 +3,7 @@ package logica.funcionalidades;
 import accesoadatos.dto.OrganizacionVinculadaDTO;
 
 
-public class ValidacionDeDatos {
+public class OrganizacionVinculadaValidador {
     
     public static void validarRfcMoral(String rfcMoral, int longitudExacta) {
         if (rfcMoral.isEmpty()) {
@@ -50,4 +50,5 @@ public class ValidacionDeDatos {
         validarTelefono(organizacionVinculadaDTO.getTelefonoOV(),10);
         validarDireccion(organizacionVinculadaDTO.getDireccionOV(), 200);
     }
+    
 }

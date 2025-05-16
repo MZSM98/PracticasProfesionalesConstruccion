@@ -1,7 +1,7 @@
 
 package accesoadatos.dto;
 
-public class AcademicoEvaluadorDTO {
+public class AcademicoEvaluadorDTO extends UsuarioDTO{
     private String numeroDeTrabajador;
     private String nombreAcademico;
     
@@ -21,5 +21,6 @@ public class AcademicoEvaluadorDTO {
     public void setNombreAcademico(String nombreAcademico) {
         this.nombreAcademico = nombreAcademico;
     }
-        
+    
+    
 }

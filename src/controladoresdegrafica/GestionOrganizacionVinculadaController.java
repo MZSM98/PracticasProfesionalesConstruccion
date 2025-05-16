@@ -80,12 +80,12 @@ public class GestionOrganizacionVinculadaController implements Initializable {
         } catch (SQLException sqle) {
             
             LOG.error("Error al cargar las organizaciones vinculadas: " + sqle.getMessage());
-            mostrarAlerta("Error", "No se pudieron cargar las organizaciones vinculadas: ", Alert.AlertType.ERROR);
+            mostrarAlerta("Error", "No se pudo cargar la información, contacte al administrador: ", Alert.AlertType.ERROR);
             
         } catch (IOException ioe){
             
             LOG.error("No se lograron cargar los registros" + ioe.getMessage());
-            mostrarAlerta("Error", "No se pudieron cargar las organizaciones vinculadas", Alert.AlertType.ERROR);
+            mostrarAlerta("Error", "No se pudo cargar la información, contacte al adminsitrador", Alert.AlertType.ERROR);
         }
     }
         
@@ -183,6 +183,7 @@ public class GestionOrganizacionVinculadaController implements Initializable {
             
             LOG.error("Error de conexión con la base de datos: " + e.getMessage());
             mostrarAlerta("Error", "Error al conectar con la base de datos: ", Alert.AlertType.ERROR);
+            
         } catch (IOException e){
             
             LOG.error("Error al cambiar estado de la organización: " + e.getMessage());

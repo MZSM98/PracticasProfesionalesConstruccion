@@ -13,7 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
-import logica.funcionalidades.ValidacionDeDatos;
+import logica.funcionalidades.OrganizacionVinculadaValidador;
 
 public class RegistroOrganizacionVinculadaController {    
     
@@ -80,7 +80,7 @@ public class RegistroOrganizacionVinculadaController {
     private boolean validarCampos(OrganizacionVinculadaDTO organizacionVinculadaDTO) {
                
         try {
-            ValidacionDeDatos.validarOrganizacionVinculada(organizacionVinculadaDTO);
+            OrganizacionVinculadaValidador.validarOrganizacionVinculada(organizacionVinculadaDTO);
             return true;
         } catch (IllegalArgumentException iae) {
             LOG.error ("Se ingresaron datos inválidos");

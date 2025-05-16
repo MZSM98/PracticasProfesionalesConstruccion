@@ -2,12 +2,12 @@ package principal;
 
 
 import javafx.application.Application;
+import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 
 public class PracticasProfesionales extends Application {
     private static final Logger LOG = Logger.getLogger(PracticasProfesionales.class);
@@ -15,7 +15,6 @@ public class PracticasProfesionales extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         
-        PropertyConfigurator.configure("C:\\Users\\User\\Documents\\NetBeansProjects\\PracticasProfesionalesConstruccion\\src\\resources\\log4j.properties");
         LOG.info("Se inició correctamente el log");
         
         Parent root = FXMLLoader.load(getClass().getResource("/grafica/FXMLMenuPrincipalCoordinador.fxml"));

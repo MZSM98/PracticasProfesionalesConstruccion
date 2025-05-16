@@ -1,7 +1,7 @@
 
 package accesoadatos.dto;
 
-public class ProfesorEEDTO {
+public class ProfesorEEDTO extends UsuarioDTO{
     
     private String numeroTrabajador;
     private String nombreProfesor;

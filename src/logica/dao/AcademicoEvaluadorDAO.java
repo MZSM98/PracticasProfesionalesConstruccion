@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AcademicoEvaluadorDAO implements InterfazAcademicoEvaluadorDAO {
     
@@ -78,7 +80,7 @@ public class AcademicoEvaluadorDAO implements InterfazAcademicoEvaluadorDAO {
             declaracionPreparada = conexionBD.prepareStatement(actualizarSQL);
             declaracionPreparada.setString(1, academicoEvaluador.getNombreAcademico());
             declaracionPreparada.setString(2, academicoEvaluador.getNumeroDeTrabajador());
-            
+            declaracionPreparada.executeUpdate();
         } finally {
             if (declaracionPreparada != null) declaracionPreparada.close();
             if (conexionBD != null) conexionBD.close();
@@ -115,5 +117,32 @@ public class AcademicoEvaluadorDAO implements InterfazAcademicoEvaluadorDAO {
 
         return academico;
     }
+
+    @Override
+    public List<AcademicoEvaluadorDTO> listarAcademicoEvaluador() throws SQLException, IOException {
+        String consultaSQL = "SELECT numeroDeTrabajador, nombreAcademico FROM academicoevaluador";
+        List<AcademicoEvaluadorDTO> academicos = new ArrayList<>();
+
+        try {
+            conexionBD = new ConexionBD().getConexionBD();
+            declaracionPreparada = conexionBD.prepareStatement(consultaSQL);
+            resultadoDeOperacion = declaracionPreparada.executeQuery();
+
+            while(resultadoDeOperacion.next()) {
+                AcademicoEvaluadorDTO academico = new AcademicoEvaluadorDTO();
+                academico.setNumeroDeTrabajador(resultadoDeOperacion.getString("numeroDeTrabajador"));
+                academico.setNombreAcademico(resultadoDeOperacion.getString("nombreAcademico"));
+                academicos.add(academico);
+            }
+        } finally {
+            if (resultadoDeOperacion != null) resultadoDeOperacion.close();
+            if (declaracionPreparada != null) declaracionPreparada.close();
+            if (conexionBD != null) conexionBD.close();
+            
+        }
+
+        return academicos;    
+    }
+
 
 }
