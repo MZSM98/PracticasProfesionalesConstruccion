@@ -1,55 +1,50 @@
-
 package accesoadatos.dto;
-
-import java.sql.Date;
 
 public class ProyectoDTO {
     
-    private String tituloProyecto;
-    private String descripcionProyecto;
-    private Date fechaInicioProyecto;
-    private Date fechaFinalProyecto;
+    private int proyectoID;
+    private String titulo;
+    private String descripcion;
     private String periodoEscolar;
-
-    public String getTituloProyecto() {
-        return tituloProyecto;
+    private String rfcMoral;
+    
+    public int getProyectoID() {
+        return proyectoID;
     }
-
-    public void setTituloProyecto(String tituloProyecto) {
-        this.tituloProyecto = tituloProyecto;
+    
+    public void setProyectoID(int proyectoID) {
+        this.proyectoID = proyectoID;
     }
-
-    public String getDescripcionProyecto() {
-        return descripcionProyecto;
+    
+    public String getTitulo() {
+        return titulo;
     }
-
-    public void setDescripcionProyecto(String descripcionProyecto) {
-        this.descripcionProyecto = descripcionProyecto;
+    
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
-
-    public Date getFechaInicioProyecto() {
-        return fechaInicioProyecto;
+    
+    public String getDescripcion() {
+        return descripcion;
     }
-
-    public void setFechaInicioProyecto(Date fechaInicioProyecto) {
-        this.fechaInicioProyecto = fechaInicioProyecto;
+    
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
-
-    public Date getFechaFinalProyecto() {
-        return fechaFinalProyecto;
-    }
-
-    public void setFechaFinalProyecto(Date fechaFinalProyecto) {
-        this.fechaFinalProyecto = fechaFinalProyecto;
-    }
-
+    
     public String getPeriodoEscolar() {
         return periodoEscolar;
     }
-
+    
     public void setPeriodoEscolar(String periodoEscolar) {
         this.periodoEscolar = periodoEscolar;
     }
     
+    public String getRfcMoral() {
+        return rfcMoral;
+    }
     
+    public void setRfcMoral(String rfcMoral) {
+        this.rfcMoral = rfcMoral;
+    }
 }

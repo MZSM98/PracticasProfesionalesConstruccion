@@ -21,7 +21,7 @@
             <Button fx:id="botonGestionarEstudiantes" layoutX="61.0" layoutY="130.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="68.0" text="Gestión" />
             <Button fx:id="botonConsultarAvances" layoutX="61.0" layoutY="165.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="68.0" text="Avances" />
             <Label layoutX="269.0" layoutY="99.0" text="Academicos" />
-            <Button fx:id="botonGestionarAcademicos" layoutX="259.0" layoutY="129.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" text="Gestión" />
+            <Button fx:id="botonGestionarAcademicos" layoutX="259.0" layoutY="129.0" mnemonicParsing="false" onAction="#abrirGestionAcademico" prefHeight="25.0" prefWidth="84.0" text="Gestión" />
             <Button fx:id="botonConsultarEvaluaciones" layoutX="259.0" layoutY="164.0" mnemonicParsing="false" text="Evaluaciones" />
             <Button fx:id="botonConsultarEstadisticas" layoutX="259.0" layoutY="201.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" text="Estadísticas" />
             <Label layoutX="479.0" layoutY="99.0" text="Ov's" />

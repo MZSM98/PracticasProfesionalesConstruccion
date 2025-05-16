@@ -20,85 +20,94 @@ public class RegistroAcademicoEvaluadorController {
     private static final Logger LOG = Logger.getLogger(RegistroAcademicoEvaluadorController.class);
 
     @FXML
-    private Button botonCancelar;
+    private Button botonCancelar, botonGuardar;
 
     @FXML
-    private Button botonGuardar;
-
-    @FXML
-    private TextField txtNombreDelTrabajador;
-
-    @FXML
-    private TextField txtNumeroDeTrabajador;
+    private TextField txtNombreDelTrabajador, txtNumeroDeTrabajador;
     
     private InterfazAcademicoEvaluadorDAO interfazAcademicoEvaluadorDAO;
     
     private boolean modoEdicion;
     
     public void initialize() {
+        
         interfazAcademicoEvaluadorDAO = new AcademicoEvaluadorDAO();
     }
 
     @FXML
     private void guardarDatosAcademico(ActionEvent event) {
+        
         AcademicoEvaluadorDTO academicoEvaluadorDTO = new AcademicoEvaluadorDTO();
         academicoEvaluadorDTO.setNumeroDeTrabajador(txtNumeroDeTrabajador.getText().trim());
         academicoEvaluadorDTO.setNombreAcademico(txtNombreDelTrabajador.getText().trim());
         
         if(!validarCampos(academicoEvaluadorDTO)){
+            
             return;
         }
-        
         if(!modoEdicion){
+            
             crearAcademicoEvaluador(academicoEvaluadorDTO);
         }else{
+            
             editarAcademicoEvaluador(academicoEvaluadorDTO);
         }
     }
 
     @FXML
     private void volverAGestionAcademico(ActionEvent event) {
+        
         Stage stage = (Stage) botonCancelar.getScene().getWindow();
         stage.close();
     }
     
     public void  llenarCamposEditablesAcademicoEvaluador(AcademicoEvaluadorDTO academicoEvaluadorSeleccionado){
+        
         AcademicoEvaluadorDTO academicoEvaluadorDTO = academicoEvaluadorSeleccionado;
         txtNumeroDeTrabajador.setText(academicoEvaluadorDTO.getNumeroDeTrabajador());
         txtNombreDelTrabajador.setText(academicoEvaluadorDTO.getNombreAcademico());
         
         txtNumeroDeTrabajador.setDisable(modoEdicion);
-
     }
     
     public void cambiarAModoEdicion(Boolean modoEdicion){
-        this.modoEdicion = modoEdicion;
+        
+        this.modoEdicion = modoEdicion;        
     }
     
     private void crearAcademicoEvaluador(AcademicoEvaluadorDTO academicoEvaluadorDTO){
+        
         try {
+            
             interfazAcademicoEvaluadorDAO.insertarAcademicoEvaluador(academicoEvaluadorDTO);
             AlertaUtil.mostrarAlerta("Error", "Académico registrado.", Alert.AlertType.CONFIRMATION);
             limpiarCampos();
-        } catch (SQLException ex) {
-            LOG.error(ex);
+        } catch (SQLException sqle) {
+            
+            LOG.error(sqle);
             AlertaUtil.mostrarAlerta("Error", "Error al guardar la información.", Alert.AlertType.ERROR);
-        } catch (IOException ex) {
-            LOG.error(ex);
+        } catch (IOException ioe) {
+            
+            LOG.error(ioe);
             AlertaUtil.mostrarAlerta("Error", "Error al guardar la información.", Alert.AlertType.ERROR);
         }
     }
     
     private void editarAcademicoEvaluador(AcademicoEvaluadorDTO academicoEvaluadorDTO){
+        
         try {
+            
             interfazAcademicoEvaluadorDAO.editarAcademicoEvaluador(academicoEvaluadorDTO);
             AlertaUtil.mostrarAlerta("Error", "Académico actualizado.", Alert.AlertType.CONFIRMATION);
-            cerrarVentana();
-        } catch (SQLException ex) {
-            LOG.error(ex);
+            cerrarVentana();            
+        } catch (SQLException sqle) {
+            
+            LOG.error(sqle);
              AlertaUtil.mostrarAlerta("Error", "Error al editar los datos.", Alert.AlertType.ERROR);
-        } catch (IOException ex) {
-            LOG.error(ex);
+             
+        } catch (IOException ioe) {
+            
+            LOG.error(ioe);
             AlertaUtil.mostrarAlerta("Error", "Error al editar los datos.", Alert.AlertType.ERROR);
         }
     }
@@ -106,9 +115,11 @@ public class RegistroAcademicoEvaluadorController {
     private boolean validarCampos(AcademicoEvaluadorDTO academicoEvaluadorDTO) {
                
         try {
+            
             AcademicoValidador.validarAcademico(academicoEvaluadorDTO);
-            return true;
+            return true;            
         } catch (IllegalArgumentException iae) {
+            
             LOG.error ("Se ingresaron datos inválidos");
             AlertaUtil.mostrarAlerta("Datos Inválidos o Incompletos", iae.getMessage(), Alert.AlertType.WARNING);
             return false;
@@ -116,11 +127,13 @@ public class RegistroAcademicoEvaluadorController {
     }
     
     private void limpiarCampos(){
+        
         txtNumeroDeTrabajador.setText("");
         txtNombreDelTrabajador.setText("");
     }
     
     private void cerrarVentana(){
+        
         Stage stage = (Stage) botonGuardar.getScene().getWindow();
         stage.close();
     }

@@ -50,6 +50,7 @@ public class GestionAcademicoEvaluadorController implements Initializable{
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
        interfazAcademicoEvaluadorDAO = new AcademicoEvaluadorDAO();
        interfazProfesorEEDAO = new ProfesorEEDAO();
        configurarColumnas();
@@ -57,31 +58,34 @@ public class GestionAcademicoEvaluadorController implements Initializable{
     }
     
     private void configurarColumnas(){
+        
         columnNombre.setCellValueFactory(new PropertyValueFactory<>("nombreAcademico"));
         columnNumeroEmpleado.setCellValueFactory(new PropertyValueFactory<>("numeroDeTrabajador"));
     }
     
     private void cargarListaAcademicoEvaluador(){
-                try {            
+        
+        try {            
+            
             List<AcademicoEvaluadorDTO> listaAcademicoEvaluador = interfazAcademicoEvaluadorDAO.listarAcademicoEvaluador();
             ObservableList<AcademicoEvaluadorDTO> listaObservableAcademicoEvaluador = FXCollections.observableArrayList(listaAcademicoEvaluador);
-            tableGestionAcademicos.setItems(listaObservableAcademicoEvaluador);
-            
+            tableGestionAcademicos.setItems(listaObservableAcademicoEvaluador);            
         } catch (SQLException e) {
             
             LOG.error("Error al cargar la información de los academicos: " + e.getMessage(), e);
-            AlertaUtil.mostrarAlerta("Error", "No se puede cargar la información de los academicos, contacte a un administrador.", Alert.AlertType.ERROR);
-            
+            AlertaUtil.mostrarAlerta("Error", "No se puedo cargar la información, contacte a un administrador.", Alert.AlertType.ERROR);            
         } catch (IOException e){
             
             LOG.error("No se lograron cargar los registros",e);
-            AlertaUtil.mostrarAlerta("Error", "No se puede cargar la información de los academicos, contacte a un administrador.", Alert.AlertType.ERROR);
+            AlertaUtil.mostrarAlerta("Error", "No se puedo cargar la información, contacte a un administrador.", Alert.AlertType.ERROR);
         }
     }
 
     @FXML
     private void abrirRegistrarAcademico(ActionEvent event) {
-                try {
+        
+        try {
+            
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/grafica/academico/FXMLRegistroAcademicoEvaluador.fxml"));
             Parent root = loader.load();            
             Stage stage = new Stage();
@@ -91,24 +95,26 @@ public class GestionAcademicoEvaluadorController implements Initializable{
             stage.showAndWait();
             
             cargarListaAcademicoEvaluador();
-
         } catch (IOException e) {
-            LOG.error("Error al abrir pantalla de registro.: " + e.getMessage(),e);
-            AlertaUtil.mostrarAlerta ("Error", "Ha ocurrido un error, intentelo más tarde", Alert.AlertType.ERROR);
             
+            LOG.error("Error al abrir pantalla de registro.: " + e.getMessage(),e);
+            AlertaUtil.mostrarAlerta ("Error", "Ha ocurrido un error, intentelo más tarde", Alert.AlertType.ERROR);            
         }
     }
 
     @FXML
     private void abrirEditarAcademico(ActionEvent event) {
+        
         AcademicoEvaluadorDTO academicoEvaluadorSeleccionado = tableGestionAcademicos.getSelectionModel().getSelectedItem();
         
         if (academicoEvaluadorSeleccionado == null) {
+            
             AlertaUtil.mostrarAlerta("Aviso", "Por favor, seleccione una organización para editar", Alert.AlertType.WARNING);
             return;
         }
         
         try {
+            
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/grafica/academico/FXMLRegistroAcademicoEvaluador.fxml"));
             Parent root = loader.load();
             
@@ -122,9 +128,9 @@ public class GestionAcademicoEvaluadorController implements Initializable{
             stage.setScene(new Scene(root));
             stage.showAndWait();
             
-            cargarListaAcademicoEvaluador();
-            
+            cargarListaAcademicoEvaluador();            
         } catch (IOException ex) {
+            
             LOG.error("Error al cargar la ventana de edición: " + ex.getMessage());
             AlertaUtil.mostrarAlerta("Error", "No se pudo abrir la ventana de edición.", Alert.AlertType.ERROR);
         }
@@ -132,11 +138,13 @@ public class GestionAcademicoEvaluadorController implements Initializable{
 
     @FXML
     private void seleccionaTipoAcademico(ActionEvent event) {
+        
         configurarColumnas();
     }
     
     @FXML
     void salirAMenuPrincipal(ActionEvent event) {
+        
         Stage ventanaActual = (Stage) botonSalir.getScene().getWindow();
         ventanaActual.close();
     }

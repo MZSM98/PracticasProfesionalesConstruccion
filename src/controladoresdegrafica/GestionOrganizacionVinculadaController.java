@@ -75,13 +75,11 @@ public class GestionOrganizacionVinculadaController implements Initializable {
             
             List<OrganizacionVinculadaDTO> organizaciones = organizacionVinculadaDAO.listarOrganizacionesVinculadas();
             listaOrganizacionesVinculadas = FXCollections.observableArrayList(organizaciones);
-            tableOrganizacionesVinculadas.setItems(listaOrganizacionesVinculadas);
-            
+            tableOrganizacionesVinculadas.setItems(listaOrganizacionesVinculadas);            
         } catch (SQLException sqle) {
             
             LOG.error("Error al cargar las organizaciones vinculadas: " + sqle.getMessage());
-            mostrarAlerta("Error", "No se pudo cargar la información, contacte al administrador: ", Alert.AlertType.ERROR);
-            
+            mostrarAlerta("Error", "No se pudo cargar la información, contacte al administrador: ", Alert.AlertType.ERROR);            
         } catch (IOException ioe){
             
             LOG.error("No se lograron cargar los registros" + ioe.getMessage());
@@ -94,7 +92,7 @@ public class GestionOrganizacionVinculadaController implements Initializable {
         
         try {
             
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/grafica/FXMLRegistroOV.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/grafica/organizacionvinculada/FXMLRegistroOV.fxml"));
             Parent root = loader.load();            
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -103,14 +101,12 @@ public class GestionOrganizacionVinculadaController implements Initializable {
             stage.showAndWait();
             
             cargarOrganizacionesVinculadas();
-
         } catch (IOException ioe) {
             
             LOG.error("Error al cargar la ventana de registro OV: " + ioe.getMessage());
             mostrarAlerta ("Error", "Ha ocurrido un error, intentelo más tarde", Alert.AlertType.ERROR);
             
-        }
-        
+        }        
     }
     
     @FXML
@@ -119,16 +115,18 @@ public class GestionOrganizacionVinculadaController implements Initializable {
         OrganizacionVinculadaDTO organizacionSeleccionada = tableOrganizacionesVinculadas.getSelectionModel().getSelectedItem();
         
         if (organizacionSeleccionada == null) {
+            
             mostrarAlerta("Aviso", "Por favor, seleccione una organización para editar", Alert.AlertType.WARNING);
             return;
         }
         
         try {
             
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/grafica/FXMLRegistroOV.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/grafica/organizacionvinculada/FXMLRegistroOV.fxml"));
             Parent root = loader.load();
             
             RegistroOrganizacionVinculadaController controlador = loader.getController();
+            
             controlador.cambiarAModoEdicion(true);
             controlador.llenarCamposEditablesOrganizacionVinculada(organizacionSeleccionada);
             
@@ -143,7 +141,7 @@ public class GestionOrganizacionVinculadaController implements Initializable {
         } catch (IOException ioe) {
             
             LOG.error("Error al cargar la ventana de edición OV: " + ioe.getMessage());
-            mostrarAlerta("Error", "No se pudo abrir la ventana de edición: ", Alert.AlertType.ERROR);
+            mostrarAlerta("Error", "No se pudo abrir la ventana de edición, contacte con un administrador ", Alert.AlertType.ERROR);
         }
         
     }

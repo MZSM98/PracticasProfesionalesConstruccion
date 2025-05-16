@@ -25,13 +25,13 @@ public class MenuPrincipalCoordinadorController{
         
         try {
             
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("grafica/organizacionvinculada/FXMLGestionOrganizacionVinculada.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/grafica/organizacionvinculada/FXMLGestionOrganizacionVinculada.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Gestión De Organizaciones");
             stage.setScene(new Scene(root));
-            stage.showAndWait();            
+            stage.showAndWait();         
             
         } catch (IOException ex) {
             
@@ -40,7 +40,7 @@ public class MenuPrincipalCoordinadorController{
         }        
     }
     
-        @FXML    
+    @FXML    
     private void abrirGestionAcademico(ActionEvent event){
         
         try {

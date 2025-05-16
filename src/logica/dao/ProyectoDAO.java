@@ -6,7 +6,6 @@ import accesoadatos.ConexionBD;
 
 import java.io.IOException;
 import java.sql.SQLException;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,17 +18,16 @@ public class ProyectoDAO implements InterfazProyectoDAO {
 
     @Override
     public boolean insertarProyecto(ProyectoDTO proyecto) throws SQLException, IOException {
-        String insertarSQL = "INSERT INTO proyecto (tituloProyecto, descripcionProyecto, fechaInicioProyecto, fechaFinalProyecto, periodoEscolar) VALUES (?, ?, ?, ?, ?)";
+        String insertarSQL = "INSERT INTO proyecto (titulo, periodoEscolar, descripcion, rfcMoral) VALUES (?, ?, ?, ?)";
         boolean insercionExitosa = false;
 
         try {
             conexionBD = new ConexionBD().getConexionBD();
             declaracionPreparada = conexionBD.prepareStatement(insertarSQL);
-            declaracionPreparada.setString(1, proyecto.getTituloProyecto());
-            declaracionPreparada.setString(2, proyecto.getDescripcionProyecto());
-            declaracionPreparada.setDate(3, proyecto.getFechaInicioProyecto());
-            declaracionPreparada.setDate(4, proyecto.getFechaFinalProyecto());
-            declaracionPreparada.setString(5, proyecto.getPeriodoEscolar());
+            declaracionPreparada.setString(1, proyecto.getTitulo());
+            declaracionPreparada.setString(2, proyecto.getPeriodoEscolar());
+            declaracionPreparada.setString(3, proyecto.getDescripcion());
+            declaracionPreparada.setString(4, proyecto.getRfcMoral());
             declaracionPreparada.executeUpdate();
             insercionExitosa = true;
         } finally {
@@ -40,14 +38,14 @@ public class ProyectoDAO implements InterfazProyectoDAO {
     }
 
     @Override
-    public boolean eliminarProyecto(String tituloProyecto) throws SQLException, IOException {
-        String eliminarSQL = "DELETE FROM proyecto WHERE tituloProyecto = ?";
+    public boolean eliminarProyecto(int proyectoID) throws SQLException, IOException {
+        String eliminarSQL = "DELETE FROM proyecto WHERE proyectoID = ?";
         boolean eliminacionExitosa = false;
 
         try {
             conexionBD = new ConexionBD().getConexionBD();
             declaracionPreparada = conexionBD.prepareStatement(eliminarSQL);
-            declaracionPreparada.setString(1, tituloProyecto);
+            declaracionPreparada.setInt(1, proyectoID);
             declaracionPreparada.executeUpdate();
             eliminacionExitosa = true;
         } finally {
@@ -59,17 +57,17 @@ public class ProyectoDAO implements InterfazProyectoDAO {
 
     @Override
     public boolean editarProyecto(ProyectoDTO proyecto) throws SQLException, IOException {
-        String actualizarSQL = "UPDATE proyecto SET descripcionProyecto = ?, fechaInicioProyecto = ?, fechaFinalProyecto = ?, periodoEscolar = ? WHERE tituloProyecto = ?";
+        String actualizarSQL = "UPDATE proyecto SET titulo = ?, periodoEscolar = ?, descripcion = ?, rfcMoral = ? WHERE proyectoID = ?";
         boolean actualizacionExitosa = false;
 
         try {
             conexionBD = new ConexionBD().getConexionBD();
             declaracionPreparada = conexionBD.prepareStatement(actualizarSQL);
-            declaracionPreparada.setString(1, proyecto.getDescripcionProyecto());
-            declaracionPreparada.setDate(2, proyecto.getFechaInicioProyecto());
-            declaracionPreparada.setDate(3, proyecto.getFechaFinalProyecto());
-            declaracionPreparada.setString(4, proyecto.getPeriodoEscolar());
-            declaracionPreparada.setString(5, proyecto.getTituloProyecto());
+            declaracionPreparada.setString(1, proyecto.getTitulo());
+            declaracionPreparada.setString(2, proyecto.getPeriodoEscolar());
+            declaracionPreparada.setString(3, proyecto.getDescripcion());
+            declaracionPreparada.setString(4, proyecto.getRfcMoral());
+            declaracionPreparada.setInt(5, proyecto.getProyectoID());
             declaracionPreparada.executeUpdate();
             actualizacionExitosa = true;
         } finally {
@@ -80,23 +78,23 @@ public class ProyectoDAO implements InterfazProyectoDAO {
     }
 
     @Override
-    public ProyectoDTO buscarProyecto(String tituloProyecto) throws SQLException, IOException {
-        String consultaSQL = "SELECT tituloProyecto, descripcionProyecto, fechaInicioProyecto, fechaFinalProyecto, periodoEscolar FROM proyecto WHERE tituloProyecto = ?";
+    public ProyectoDTO buscarProyectoPorNombre(String titulo) throws SQLException, IOException {
+        String consultaSQL = "SELECT proyectoID, titulo, periodoEscolar, descripcion, rfcMoral FROM proyecto WHERE titulo = ?";
         ProyectoDTO proyecto = null;
 
         try {
             conexionBD = new ConexionBD().getConexionBD();
             declaracionPreparada = conexionBD.prepareStatement(consultaSQL);
-            declaracionPreparada.setString(1, tituloProyecto);
+            declaracionPreparada.setString(1, titulo);
             resultadoDeOperacion = declaracionPreparada.executeQuery();
 
             if (resultadoDeOperacion.next()) {
                 proyecto = new ProyectoDTO();
-                proyecto.setTituloProyecto(resultadoDeOperacion.getString("tituloProyecto"));
-                proyecto.setDescripcionProyecto(resultadoDeOperacion.getString("descripcionProyecto"));
-                proyecto.setFechaInicioProyecto(resultadoDeOperacion.getDate("fechaInicioProyecto"));
-                proyecto.setFechaFinalProyecto(resultadoDeOperacion.getDate("fechaFinalProyecto"));
+                proyecto.setProyectoID(resultadoDeOperacion.getInt("proyectoID"));
+                proyecto.setTitulo(resultadoDeOperacion.getString("titulo"));
                 proyecto.setPeriodoEscolar(resultadoDeOperacion.getString("periodoEscolar"));
+                proyecto.setDescripcion(resultadoDeOperacion.getString("descripcion"));
+                proyecto.setRfcMoral(resultadoDeOperacion.getString("rfcMoral"));
             }
         } finally {
             if (resultadoDeOperacion != null) resultadoDeOperacion.close();
